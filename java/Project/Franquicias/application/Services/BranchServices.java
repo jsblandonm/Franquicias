@@ -19,7 +19,7 @@ public class BranchServices implements BranchUseCase {
     public Mono<Branch> addBranch(Branch branch) {
         return franchiseRepository.findById(branch.getFranchiseId())
                 .switchIfEmpty(Mono.error(
-                        new RuntimeException("franchise not found with id:" + branch.getFranchiseId())
+                        new RuntimeException("Franchise not found with id:" + branch.getFranchiseId())
                         ))
                 .flatMap(existingFranchise -> branchRepository.save(branch));
 
@@ -29,7 +29,7 @@ public class BranchServices implements BranchUseCase {
     public Mono<Branch> updateBranchName(String id, String newName) {
         return branchRepository.findById(id)
                 .switchIfEmpty(Mono.error(
-                        new RuntimeException("branch not found with id: " + id)
+                        new RuntimeException("Branch not found with id: " + id)
                 ))
                 .flatMap(existing -> branchRepository.update(id, newName));
     }

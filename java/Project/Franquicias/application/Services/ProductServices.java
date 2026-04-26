@@ -23,7 +23,7 @@ public class ProductServices implements ProductUseCase {
     public Mono<Product> addProduct(Product product) {
         return branchRepository.findById(product.getBranchId())
                 .switchIfEmpty(Mono.error(
-                        new RuntimeException("branch not found with id:" + product.getBranchId())
+                        new RuntimeException("Branch not found with id:" + product.getBranchId())
                 ))
                 .flatMap(existingBranch -> productRepository.save(product));
     }
@@ -31,14 +31,14 @@ public class ProductServices implements ProductUseCase {
     @Override
     public Mono<Void> deleteProduct(String id) {
         return productRepository.findById(id)
-                .switchIfEmpty(Mono.error(new RuntimeException("product not found with id: " + id)))
+                .switchIfEmpty(Mono.error(new RuntimeException("Product not found with id: " + id)))
                 .flatMap(existingProduct -> productRepository.deleteById(id));
     }
 
     @Override
     public Mono<Product> updateStock(String id, Integer newStock) {
         return productRepository.findById(id)
-                .switchIfEmpty(Mono.error(new RuntimeException("product not found with id: " + id)))
+                .switchIfEmpty(Mono.error(new RuntimeException("Product not found with id: " + id)))
                 .flatMap(existingProduct -> {
                     existingProduct.setStock(newStock);
                     return productRepository.update(existingProduct);
