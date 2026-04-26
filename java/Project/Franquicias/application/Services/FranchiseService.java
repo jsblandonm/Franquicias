@@ -22,7 +22,7 @@ public class FranchiseService implements FranchiseUseCase {
     public Mono<Franchise> updateFranchise(String id, String newName) {
         return franchiseRepository.findById(id)
                 .switchIfEmpty(Mono.error(
-                        new RuntimeException("franchise not found with id:" + id)))
+                        new RuntimeException("Franchise not found with id:" + id)))
                         .flatMap(existingFranchise -> franchiseRepository.update(id, newName));
     }
 }
